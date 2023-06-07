@@ -3,7 +3,7 @@
 
 import Navbar from './components/Navbar.jsx'
 
-import './App.css'
+// import './App.css'
 import { Outlet } from 'react-router-dom'
 
 function App() {
