@@ -1,0 +1,40 @@
+.homepage {
+    text-align: center;
+    margin-top: 50px;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.shop-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-decoration: none;
+    background-color: #5438c6;
+    color: #ffffff;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.shop-button:hover {
+    background-color: #4730a5;
+}
+
+@media (prefers-color-scheme: light) {
+    .shop-button {
+        background-color: #504df8;
+        color: #ffffff;
+    }
+
+    .shop-button:hover {
+        background-color: #3842f5;
+    }
+}
