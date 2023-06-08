@@ -1,4 +1,5 @@
-import "./Shop.css"
+import { useOutletContext } from "react-router-dom";
+import "./Shop.css";
 
 // this could be a response from an API
 const products = [
@@ -35,6 +36,19 @@ const products = [
 ];
 
 export default function Shop() {
+    const [userCart, setUserCart] = useOutletContext();
+
+    function addToCart(product) {
+        const newCart = [...userCart];
+        const itemInCart = newCart.find(item => item.product.id === product.id);
+        if (itemInCart) {
+            itemInCart.quantity++;
+        } else {
+            newCart.push({ product: product, quantity: 1 });
+        }
+        setUserCart(newCart);
+    }
+
     return (
         <>
             <h2>Our Products</h2>
@@ -44,6 +58,9 @@ export default function Shop() {
                         <img src={product.image} alt={product.name} />
                         <h3>{product.name}</h3>
                         <p>Price: ${product.price}</p>
+                        <button onClick={() => addToCart(product)}>
+                            Add to Cart
+                        </button>
                     </div>
                 ))}
             </div>
