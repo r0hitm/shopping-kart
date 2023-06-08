@@ -12,31 +12,36 @@ import Cart from "./routes/Cart.jsx";
 
 import "./index.css";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+    [
+        {
+            path: "/",
+            element: <App />,
+            errorElement: <Error />,
+            children: [
+                {
+                    path: "/",
+                    element: <Home />,
+                },
+                {
+                    path: "/about",
+                    element: <About />,
+                },
+                {
+                    path: "/shop",
+                    element: <Shop />,
+                },
+                {
+                    path: "/cart",
+                    element: <Cart />,
+                },
+            ],
+        },
+    ],
     {
-        path: "/",
-        element: <App />,
-        errorElement: <Error />,
-        children: [
-            {
-                path: "/",
-                element: <Home />,
-            },
-            {
-                path: "/about",
-                element: <About />,
-            },
-            {
-                path: "/shop",
-                element: <Shop />,
-            },
-            {
-                path: "/cart",
-                element: <Cart />,
-            },
-        ],
-    },
-]);
+        basename: "/shopping-kart",
+    }
+);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
