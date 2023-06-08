@@ -5,15 +5,21 @@ export default function Cart() {
     const [userCart, setUserCart] = useOutletContext();
 
     function removeFromCart(productId) {
-        const newCart = [...userCart];
-        const itemInCart = newCart.find(item => item.product.id === productId);
-        if (itemInCart) {
-            itemInCart.quantity--;
-        }
-        if (itemInCart.quantity === 0) {
-            const index = newCart.indexOf(itemInCart);
-            newCart.splice(index, 1);
-        }
+        const newCart = userCart.filter(item => item.product.id !== productId);
+        setUserCart(newCart);
+    }
+
+    function updateQuantity(productId, newQuantity) {
+        if (newQuantity === 0) return removeFromCart(productId);
+        const newCart = userCart.map(item => {
+            if (item.product.id === productId) {
+                return {
+                    ...item,
+                    quantity: newQuantity,
+                };
+            }
+            return item;
+        });
         setUserCart(newCart);
     }
 
@@ -26,7 +32,39 @@ export default function Cart() {
                         <img src={item.product.image} alt={item.product.name} />
                         <h3>{item.product.name}</h3>
                         <p>Price: ${item.product.price}</p>
-                        <p>Quantity: {item.quantity}</p>
+                        {/* <p>Quantity: {item.quantity}</p> */}
+                        <div className="quantity">
+                            <button
+                                onClick={() =>
+                                    updateQuantity(
+                                        item.product.id,
+                                        item.quantity - 1
+                                    )
+                                }
+                            >
+                                -
+                            </button>
+                            <input
+                                type="number"
+                                value={item.quantity}
+                                onChange={event =>
+                                    updateQuantity(
+                                        item.product.id,
+                                        parseInt(event.target.value)
+                                    )
+                                }
+                            />
+                            <button
+                                onClick={() =>
+                                    updateQuantity(
+                                        item.product.id,
+                                        item.quantity + 1
+                                    )
+                                }
+                            >
+                                +
+                            </button>
+                        </div>
                         <button onClick={() => removeFromCart(item.product.id)}>
                             Remove from Cart
                         </button>
